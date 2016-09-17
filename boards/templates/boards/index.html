@@ -1,0 +1,9 @@
+{% if boards %}
+    <ul>
+    {% for board in boards %}
+        <li><a href="/boards/{{ board.id }}/lists/">{{ board.board_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No boards are available.</p>
+{% endif %}
