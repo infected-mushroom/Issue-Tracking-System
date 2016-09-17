@@ -5,7 +5,7 @@ from datetime import datetime
 #from django.template import loader
 
 from .models import Board, List
-from .forms import BoardForm
+from .forms import BoardForm, ListForm
 
 def index(request):
     boards = Board.objects.order_by('-creation_date')[:10]
@@ -14,12 +14,7 @@ def index(request):
     }
     return render(request, 'boards/index.html', context)
 
-#def detail(request, board_id):
-#    board = get_object_or_404(Board, pk=board_id)
-#    return render(request, 'boards/detail.html', context)
 
-#def board_content(request, board_id):
-#    return HttpResponse("You're looking at board %s." % board_id)
 def board_content(request, board_id):
     board = get_object_or_404(Board, pk=board_id)
     return render(request, 'boards/board_content.html', {'board': board})    
@@ -43,3 +38,14 @@ def board_new(request):
     else:
         form = BoardForm()
     return render(request, 'boards/board_new.html', {'form': form})
+
+def list_new(request, board_id):
+    if request.method == "POST":
+        form = ListForm(request.POST)
+        if form.is_valid():
+            list = form.save(commit=False)
+            list.save()
+            return redirect('/boards/%s/lists/%s' %board_id %list.pk, pk=list.pk)
+    else:
+        form = ListForm()
+    return render(request, 'boards/list_new.html', {'form': form})
