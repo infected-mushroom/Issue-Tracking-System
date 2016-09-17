@@ -1,8 +1,11 @@
-<h1>Boards</h1>
+<h1>Boards
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<a href="{% url 'boards:board_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></h1>
 {% if boards %}
     <ul>
     {% for board in boards %}
-        <li><a href="{% url 'board_content' board.id %}">{{ board.board_name }}</a></li>
+        <li><a href="{% url 'boards:board_content' board.id %}">{{ board.board_name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
