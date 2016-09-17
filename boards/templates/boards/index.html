@@ -1,7 +1,8 @@
+<h1>Boards</h1>
 {% if boards %}
     <ul>
     {% for board in boards %}
-        <li><a href="/boards/{{ board.id }}/lists/">{{ board.board_name }}</a></li>
+        <li><a href="{% url 'board_content' board.id %}">{{ board.board_name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

@@ -1,0 +1,6 @@
+<h1>{{ list.list_name }}</h1>
+<ul>
+{% for task in list.task_set.all %}
+    <li>{{ task.task_text }}</li>
+{% endfor %}
+</ul>
