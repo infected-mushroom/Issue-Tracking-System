@@ -22,7 +22,8 @@ def board_content(request, board_id):
 
 def list_content(request, board_id, list_id):
     list = get_object_or_404(List, pk=list_id)
-    return render(request, 'boards/list_content.html', {'list': list})
+    board = get_object_or_404(Board, pk=board_id)
+    return render(request, 'boards/list_content.html', {'board': board, 'list': list})
 
 
 def board_new(request):
@@ -64,6 +65,6 @@ def task_new(request, board_id, list_id):
             task.save()
             page = '/boards/' + str(board_id) + '/lists/' + str(list_id)
             return redirect(page, pk = task.pk)
-        else:
+    else:
             form = TaskForm()
     return render(request, 'boards/task_new.html', {'form': form})
