@@ -1,9 +1,28 @@
 <body style="background:#E5E4E2">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Tracker</a>
+    </div>
+  <ul class="nav navbar-nav">
+    <li class="active"><a href="{% url 'boards:index' %}">Boards</a></li>
+  </ul>
+   <ul class="nav navbar-nav">
+    <li class="active"><a href="#">{{ board.board_name }}</a></li>
+  </ul>
+  <ul class="nav navbar-nav">
+    <li><a href="{% url 'boards:board_edit' board.id %}"><span class="glyphicon glyphicon-pencil"></span></a></li>
+  </ul>
+  <ul class="nav navbar-nav">
+    <li><a href="{% url 'boards:board_remove' board.id %}"><span class="glyphicon glyphicon-remove"></span></a></li>
+  </ul>
+  </div>
+</nav>
+
 <h1>{{ board.board_name }}
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-<a class="btn btn-default" href="{% url 'boards:board_edit' board.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
-<a class="btn btn-default" href="{% url 'boards:board_remove' board.id %}"><span class="glyphicon glyphicon-remove"></span></a>
 </h1>
 <ul>
 {% for list in board.list_set.all %}
