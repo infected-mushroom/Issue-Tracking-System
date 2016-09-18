@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <a class="btn btn-default" href="{% url 'boards:board_edit' board.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+<a class="btn btn-default" href="{% url 'boards:board_remove' board.id %}"><span class="glyphicon glyphicon-remove"></span></a>
 </h1>
 <ul>
 {% for list in board.list_set.all %}

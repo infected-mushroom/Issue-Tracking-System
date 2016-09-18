@@ -78,3 +78,29 @@ def board_edit(request, board_id):
         else:
             form = BoardForm(instance=board)
         return render(request, 'boards/board_edit.html', {'form': form})
+
+def list_edit(request, board_id, list_id):
+        list = get_object_or_404(List, pk=list_id)
+
+        if request.method == "POST":
+            form = ListForm(request.POST, instance=list)
+            if form.is_valid():
+                list = form.save(commit=False)
+                board = get_object_or_404(Board, pk=board_id)
+                list.board = board
+                list.save()
+                page = '/boards/' + str(board_id) + '/lists/' + str(list_id)
+                return redirect(page, pk=list.pk)
+        else:
+            form = ListForm(instance=list)
+        return render(request, 'boards/list_edit.html', {'form': form})
+
+def board_remove(request, board_id):
+    board = get_object_or_404(Board, pk=board_id)
+    board.delete()
+    return redirect('/boards/')
+
+def list_remove(request, board_id, list_id):
+    list = get_object_or_404(List, pk=list_id)
+    list.delete()
+    return redirect('/boards/%s/lists/' %board_id)

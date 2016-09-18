@@ -7,8 +7,8 @@
     {% for board in boards %}
         <li><a href="{% url 'boards:board_content' board.id %}">{{ board.board_name }}</a></li>
     {% endfor %}
-    <a href="{% url 'boards:board_new' %}" button type="submit" class="save btn btn-default">Add a new board</a>
     </ul>
 {% else %}
-    <p>No boards are available.</p>
+    <ul><p>No boards are available.</p></ul>
 {% endif %}
+<ul><a href="{% url 'boards:board_new' %}" button type="submit" class="save btn btn-default">Add a new board</a></ul>

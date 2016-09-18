@@ -13,6 +13,9 @@ urlpatterns = [
     url(r'^(?P<board_id>[0-9]+)/lists/new/$', views.list_new, name='list_new'),
     url(r'^(?P<board_id>[0-9]+)/lists/(?P<list_id>[0-9]+)/task_new/$', views.task_new, name='task_new'),
     url(r'^(?P<board_id>[0-9]+)/lists/edit/$', views.board_edit, name='board_edit'),
+    url(r'^(?P<board_id>[0-9]+)/lists/(?P<list_id>[0-9]+)/edit/$', views.list_edit, name='list_edit'),
+    url(r'^(?P<board_id>[0-9]+)/lists/remove/$', views.board_remove, name='board_remove'),
+    url(r'^(?P<board_id>[0-9]+)/lists/(?P<list_id>[0-9]+)/remove/$', views.list_remove, name='list_remove'),
     # ex: /polls/5/vote/
     #url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 ]

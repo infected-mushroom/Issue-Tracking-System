@@ -1,6 +1,9 @@
 <h1>{{ list.list_name }}
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<a class="btn btn-default" href="{% url 'boards:list_edit' board.id list.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+<a class="btn btn-default" href="{% url 'boards:list_remove' board.id list.id %}"><span class="glyphicon glyphicon-remove"></span></a>
+
 </h1>
 <ul>
 {% for task in list.task_set.all %}
