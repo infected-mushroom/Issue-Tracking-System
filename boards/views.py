@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import Http404
 from django.http import HttpResponse
 from datetime import datetime
+from django import forms
 #from django.template import loader
 
 from .models import Board, List
@@ -39,13 +40,19 @@ def board_new(request):
         form = BoardForm()
     return render(request, 'boards/board_new.html', {'form': form})
 
+#import pdb;
+#pdb.set_trace()
 def list_new(request, board_id):
     if request.method == "POST":
         form = ListForm(request.POST)
+#        form.board_id = board_id
         if form.is_valid():
             list = form.save(commit=False)
+            board = get_object_or_404(Board, pk=board_id)
+            list.board = board
             list.save()
-            return redirect('/boards/%s/lists/%s' %board_id %list.pk, pk=list.pk)
+            page = '/boards/' + str(board_id) + '/lists/'
+            return redirect(page, pk = list.pk)
     else:
         form = ListForm()
     return render(request, 'boards/list_new.html', {'form': form})
