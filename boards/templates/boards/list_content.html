@@ -1,3 +1,4 @@
+<body style="background:#E5E4E2">
 <h1>{{ list.list_name }}
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
@@ -11,3 +12,4 @@
 {% endfor %}
 <a href="{%url 'boards:task_new' board.id list.id %}" button type="submit" class="save btn btn-default">Add a new task</a>
 </ul>
+</body>
