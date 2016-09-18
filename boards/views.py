@@ -3,7 +3,6 @@ from django.http import Http404
 from django.http import HttpResponse
 from datetime import datetime
 from django import forms
-#from django.template import loader
 
 from .models import Board, List, Task
 from .forms import BoardForm, ListForm, TaskForm
@@ -38,8 +37,6 @@ def board_new(request):
         form = BoardForm()
     return render(request, 'boards/board_new.html', {'form': form})
 
-#import pdb;
-#pdb.set_trace()
 def list_new(request, board_id):
     if request.method == "POST":
         form = ListForm(request.POST)
@@ -68,3 +65,16 @@ def task_new(request, board_id, list_id):
     else:
             form = TaskForm()
     return render(request, 'boards/task_new.html', {'form': form})
+
+def board_edit(request, board_id):
+        board = get_object_or_404(Board, pk=board_id)
+        if request.method == "POST":
+            form = BoardForm(request.POST, instance=board)
+            if form.is_valid():
+                board = form.save(commit=False)
+                board.creation_date = datetime.now()
+                board.save()
+                return redirect('/boards/%s/lists/' %board.pk, pk=board.pk)
+        else:
+            form = BoardForm(instance=board)
+        return render(request, 'boards/board_edit.html', {'form': form})

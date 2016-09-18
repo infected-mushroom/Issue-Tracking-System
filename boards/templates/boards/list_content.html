@@ -1,9 +1,10 @@
 <h1>{{ list.list_name }}
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-<a href="{%url 'boards:task_new' board.id list.id %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></h1>
+</h1>
 <ul>
 {% for task in list.task_set.all %}
     <li>{{ task.task_text }}</li>
 {% endfor %}
+<a href="{%url 'boards:task_new' board.id list.id %}" button type="submit" class="save btn btn-default">Add a new task</a>
 </ul>
