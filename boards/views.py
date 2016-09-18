@@ -5,8 +5,8 @@ from datetime import datetime
 from django import forms
 #from django.template import loader
 
-from .models import Board, List
-from .forms import BoardForm, ListForm
+from .models import Board, List, Task
+from .forms import BoardForm, ListForm, TaskForm
 
 def index(request):
     boards = Board.objects.order_by('-creation_date')[:10]
@@ -23,8 +23,6 @@ def board_content(request, board_id):
 def list_content(request, board_id, list_id):
     list = get_object_or_404(List, pk=list_id)
     return render(request, 'boards/list_content.html', {'list': list})
-#    response = "You're looking at list %s."
-#    return HttpResponse(response % list_id)
 
 
 def board_new(request):
@@ -35,7 +33,6 @@ def board_new(request):
             board.creation_date = datetime.now()
             board.save()
             return redirect('/boards/%s/lists/' %board.pk, pk=board.pk)
-#            return redirect('boards/board_content', pk=board.pk)
     else:
         form = BoardForm()
     return render(request, 'boards/board_new.html', {'form': form})
@@ -45,7 +42,6 @@ def board_new(request):
 def list_new(request, board_id):
     if request.method == "POST":
         form = ListForm(request.POST)
-#        form.board_id = board_id
         if form.is_valid():
             list = form.save(commit=False)
             board = get_object_or_404(Board, pk=board_id)
@@ -56,3 +52,18 @@ def list_new(request, board_id):
     else:
         form = ListForm()
     return render(request, 'boards/list_new.html', {'form': form})
+
+def task_new(request, board_id, list_id):
+    if request.method == "POST":
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.pub_date = datetime.now()
+            task_list = get_object_or_404(List, pk=list_id)
+            task.task_list = task_list
+            task.save()
+            page = '/boards/' + str(board_id) + '/lists/' + str(list_id)
+            return redirect(page, pk = task.pk)
+        else:
+            form = TaskForm()
+    return render(request, 'boards/task_new.html', {'form': form})
