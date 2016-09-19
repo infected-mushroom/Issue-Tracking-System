@@ -28,6 +28,6 @@
 {% for list in board.list_set.all %}
     <li><a href="{%url 'boards:list_content' board.id list.id %}">{{ list.list_name }}</a></li>
 {% endfor %}
-<a href="{% url 'boards:list_new' board.id %}" button type="submit" class="save btn btn-default">Add a new list</a>
+<a href="{% url 'boards:list_new' board.id %}" button type="submit" class="btn btn-success">Add a new list</a>
 </ul>
 </body>

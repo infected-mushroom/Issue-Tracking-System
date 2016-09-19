@@ -1,15 +1,38 @@
 <body style="background:#E5E4E2">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Tracker</a>
+    </div>
+  <ul class="nav navbar-nav">
+    <li class="active"><a href="{% url 'boards:index' %}">Boards</a></li>
+  </ul>
+   <ul class="nav navbar-nav">
+    <li class="active"><a href="{% url 'boards:board_content' board.id %}">{{ board.board_name }}</a></li>
+  </ul>
+   <ul class="nav navbar-nav">
+    <li class="active"><a href="#">{{ list.list_name }}</a></li>
+  </ul>
+  <ul class="nav navbar-nav">
+    <li><a href="{% url 'boards:board_edit' board.id %}"><span class="glyphicon glyphicon-pencil"></span></a></li>
+  </ul>
+  <ul class="nav navbar-nav">
+    <li><a href="{% url 'boards:board_remove' board.id %}"><span class="glyphicon glyphicon-remove"></span></a></li>
+  </ul>
+  </div>
+</nav>
+
+
 <h1>{{ list.list_name }}
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-<a class="btn btn-default" href="{% url 'boards:list_edit' board.id list.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
-<a class="btn btn-default" href="{% url 'boards:list_remove' board.id list.id %}"><span class="glyphicon glyphicon-remove"></span></a>
 
 </h1>
 <ul>
 {% for task in list.task_set.all %}
     <li>{{ task.task_text }}</li>
 {% endfor %}
-<a href="{%url 'boards:task_new' board.id list.id %}" button type="submit" class="save btn btn-default">Add a new task</a>
+<a href="{%url 'boards:task_new' board.id list.id %}" button type="submit" class="btn btn-success">Add a new task</a>
 </ul>
 </body>

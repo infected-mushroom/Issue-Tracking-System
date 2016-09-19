@@ -1,7 +1,13 @@
+<body style="background:#E5E4E2">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 {% block content %}
        <h1>New task</h1>
+       <ul>
        <form method="POST" class="post-form">{% csrf_token %}
            {{ form.as_p }}
-           <button type="submit" class="save btn btn-default">Save</button>
+           <button type="submit" class="btn btn-success">Save</button>
        </form>
+       </ul>
 {% endblock %}
+</body>
