@@ -1,5 +1,5 @@
 from django import forms
-from .models import Board, List, Task
+from .models import Board, List, Task, Comment
 
 class BoardForm(forms.ModelForm):
 
@@ -19,3 +19,9 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ('task_text',)
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ('author', 'text',)

@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from datetime import datetime
 from django import forms
 
-from .models import Board, List, Task
-from .forms import BoardForm, ListForm, TaskForm
+from .models import Board, List, Task, Comment
+from .forms import BoardForm, ListForm, TaskForm, CommentForm
 
 def index(request):
     boards = Board.objects.order_by('-creation_date')[:10]
@@ -104,3 +104,16 @@ def list_remove(request, board_id, list_id):
     list = get_object_or_404(List, pk=list_id)
     list.delete()
     return redirect('/boards/%s/lists/' %board_id)
+
+'''def add_comment_to_task(request, board_id, list_id):
+    list = get_object_or_404(List, pk=list_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('blog.views.post_detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/add_comment_to_post.html', {'form': form})'''

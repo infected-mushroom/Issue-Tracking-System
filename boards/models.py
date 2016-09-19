@@ -20,3 +20,12 @@ class Task(models.Model):
     pub_date = models.DateTimeField('date published')
     def __str__(self):
         return self.task_text
+
+class Comment(models.Model):
+    task = models.ForeignKey(Task, related_name='comments')
+    author = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(default=datetime.now)
+
+    def __str__(self):
+        return self.text

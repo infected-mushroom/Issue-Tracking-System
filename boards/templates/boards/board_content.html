@@ -20,14 +20,24 @@
   </div>
 </nav>
 
-<h1>{{ board.board_name }}
+<ul><h1>{{ board.board_name }}
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-</h1>
+</h1></ul>
 <ul>
 {% for list in board.list_set.all %}
-    <li><a href="{%url 'boards:list_content' board.id list.id %}">{{ list.list_name }}</a></li>
+    <h4><a href="{%url 'boards:list_content' board.id list.id %}">{{ list.list_name }}</a></h4>
+    {% if list.task_set.all %}
+        {% for task in list.task_set.all %}
+           <ul><li>{{ task.task_text }}</li></ul>
+           {% if task.comments.count %}
+               <ul><a href="{% url 'boards:list_content' board.id list.id %}">Comments: {{ task.comments.count }}</a></ul>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <ul>This list is empty.</ul>
+    {% endif %}
 {% endfor %}
-<a href="{% url 'boards:list_new' board.id %}" button type="submit" class="btn btn-success">Add a new list</a>
 </ul>
+<ul><a href="{% url 'boards:list_new' board.id %}" button type="submit" class="btn btn-success">Add a new list</a></ul>
 </body>

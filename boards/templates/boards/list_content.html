@@ -32,6 +32,17 @@
 <ul>
 {% for task in list.task_set.all %}
     <li>{{ task.task_text }}</li>
+    {% for comment in task.comments.all %}
+        <hr>
+        <ul>
+        <div class="comment">
+            <div class="date">{{ comment.created_date }}</div>
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.text|linebreaks }}</p>
+        </div>
+        </ul>
+        <hr>
+    {% endfor %}
 {% endfor %}
 <a href="{%url 'boards:task_new' board.id list.id %}" button type="submit" class="btn btn-success">Add a new task</a>
 </ul>
