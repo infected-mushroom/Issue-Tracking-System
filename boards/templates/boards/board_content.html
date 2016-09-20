@@ -1,3 +1,6 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'boards/style.css' %}" />
+
 <body style="background:#E5E4E2">
 
 <nav class="navbar navbar-default">
@@ -6,7 +9,7 @@
       <a class="navbar-brand" href="#">Tracker</a>
     </div>
   <ul class="nav navbar-nav">
-    <li class="active"><a href="{% url 'boards:index' %}">Boards</a></li>
+    <li><a href="{% url 'boards:index' %}">Boards</a></li>
   </ul>
    <ul class="nav navbar-nav">
     <li class="active"><a href="#">{{ board.board_name }}</a></li>
@@ -29,9 +32,9 @@
     <h4><a href="{%url 'boards:list_content' board.id list.id %}">{{ list.list_name }}</a></h4>
     {% if list.task_set.all %}
         {% for task in list.task_set.all %}
-           <ul><li>{{ task.task_text }}</li></ul>
+           <ul><li><a href="{% url 'boards:task_content' board.id list.id task.id%}">{{ task.task_text }}</a></li></ul>
            {% if task.comments.count %}
-               <ul><a href="{% url 'boards:list_content' board.id list.id %}">Comments: {{ task.comments.count }}</a></ul>
+               <ul>Comments: {{ task.comments.count }}</ul>
             {% endif %}
         {% endfor %}
     {% else %}

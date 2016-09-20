@@ -1,0 +1,13 @@
+<body style="background:#E5E4E2">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+{% block content %}
+    <ul><h1>New comment</h1></ul>
+    <ul>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Send</button>
+    </ul>
+    </form>
+{% endblock %}
+</body>

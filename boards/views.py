@@ -24,6 +24,12 @@ def list_content(request, board_id, list_id):
     board = get_object_or_404(Board, pk=board_id)
     return render(request, 'boards/list_content.html', {'board': board, 'list': list})
 
+def task_content(request, board_id, list_id, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    list = get_object_or_404(List, pk=list_id)
+    board = get_object_or_404(Board, pk=board_id)
+    return render(request, 'boards/task_content.html', {'board': board, 'list': list, 'task': task})
+
 
 def board_new(request):
     if request.method == "POST":
@@ -105,15 +111,17 @@ def list_remove(request, board_id, list_id):
     list.delete()
     return redirect('/boards/%s/lists/' %board_id)
 
-'''def add_comment_to_task(request, board_id, list_id):
-    list = get_object_or_404(List, pk=list_id)
+def add_comment_to_task(request, board_id, list_id, task_id):
+    task = get_object_or_404(Task, pk=task_id)
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.post = post
+            comment.task = task
+            comment.created_date = datetime.now()
             comment.save()
-            return redirect('blog.views.post_detail', pk=post.pk)
+            page = '/boards/' + str(board_id) + '/lists/' + str(list_id) + '/tasks/' + str(task_id)
+            return redirect(page)
     else:
         form = CommentForm()
-    return render(request, 'blog/add_comment_to_post.html', {'form': form})'''
+    return render(request, 'boards/add_comment_to_task.html', {'form': form})

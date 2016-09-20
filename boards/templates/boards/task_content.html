@@ -1,0 +1,57 @@
+{% load staticfiles %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="background:#E5E4E2">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Tracker</a>
+    </div>
+  <ul class="nav navbar-nav">
+    <li><a href="{% url 'boards:index' %}">Boards</a></li>
+  </ul>
+   <ul class="nav navbar-nav">
+    <li><a href="{% url 'boards:board_content' board.id %}">{{ board.board_name }}</a></li>
+  </ul>
+   <ul class="nav navbar-nav">
+    <li><a href="{% url 'boards:list_content' board.id list.id %}">{{ list.list_name }}</a></li>
+  </ul>
+  <ul class="nav navbar-nav">
+    <li class="active"><a href="#">{{ task.task_text }}</a></li>
+  </ul>
+  <ul class="nav navbar-nav">
+    <li><a href="{% url 'boards:board_edit' board.id %}"><span class="glyphicon glyphicon-pencil"></span></a></li>
+  </ul>
+  <ul class="nav navbar-nav">
+    <li><a href="{% url 'boards:board_remove' board.id %}"><span class="glyphicon glyphicon-remove"></span></a></li>
+  </ul>
+  </div>
+</nav>
+
+
+<ul><h1>{{ task.task_text }}</ul>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+</h1>
+<ul><div class ="date">Due date: {{ task.deadline}}</div></ul>
+<ul>
+    <h4>Comments ({{task.comments.count}}) <a href="{% url 'boards:add_comment_to_task' board.id list.id task.id %}"><span class="glyphicon glyphicon-plus"></span></a></h4>
+    {% for comment in task.comments.all %}
+        <hr>
+        <ul>
+        <div class="comment">
+            <div class="date">{{ comment.created_date }}</div>
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.text|linebreaks }}</p>
+        </div>
+        </ul>
+        <hr>
+    {% endfor %}
+</ul>
+</body>

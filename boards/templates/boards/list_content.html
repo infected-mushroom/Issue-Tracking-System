@@ -6,43 +6,33 @@
       <a class="navbar-brand" href="#">Tracker</a>
     </div>
   <ul class="nav navbar-nav">
-    <li class="active"><a href="{% url 'boards:index' %}">Boards</a></li>
+    <li><a href="{% url 'boards:index' %}">Boards</a></li>
   </ul>
    <ul class="nav navbar-nav">
-    <li class="active"><a href="{% url 'boards:board_content' board.id %}">{{ board.board_name }}</a></li>
+    <li><a href="{% url 'boards:board_content' board.id %}">{{ board.board_name }}</a></li>
   </ul>
    <ul class="nav navbar-nav">
     <li class="active"><a href="#">{{ list.list_name }}</a></li>
   </ul>
   <ul class="nav navbar-nav">
-    <li><a href="{% url 'boards:board_edit' board.id %}"><span class="glyphicon glyphicon-pencil"></span></a></li>
+    <li><a href="{% url 'boards:list_edit' board.id list.id%}"><span class="glyphicon glyphicon-pencil"></span></a></li>
   </ul>
   <ul class="nav navbar-nav">
-    <li><a href="{% url 'boards:board_remove' board.id %}"><span class="glyphicon glyphicon-remove"></span></a></li>
+    <li><a href="{% url 'boards:list_remove' board.id list.id%}"><span class="glyphicon glyphicon-remove"></span></a></li>
   </ul>
   </div>
 </nav>
 
 
-<h1>{{ list.list_name }}
+<ul><h1>{{ list.list_name }}</ul>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
 </h1>
 <ul>
 {% for task in list.task_set.all %}
-    <li>{{ task.task_text }}</li>
-    {% for comment in task.comments.all %}
-        <hr>
-        <ul>
-        <div class="comment">
-            <div class="date">{{ comment.created_date }}</div>
-            <strong>{{ comment.author }}</strong>
-            <p>{{ comment.text|linebreaks }}</p>
-        </div>
-        </ul>
-        <hr>
-    {% endfor %}
+    <li><a href="{%url 'boards:task_content' board.id list.id task.id %}">{{ task.task_text }}</a></li>
+    <div class ="date"> Due date: {{ task.deadline}}</div>
 {% endfor %}
 <a href="{%url 'boards:task_new' board.id list.id %}" button type="submit" class="btn btn-success">Add a new task</a>
 </ul>
