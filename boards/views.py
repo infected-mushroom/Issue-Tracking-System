@@ -21,14 +21,17 @@ def index(request):
 
 def board_content(request, board_id):
     board = get_object_or_404(Board, pk=board_id)
+    tasks = Task.objects.order_by('-deadline')
     return render(request, 'boards/board_content.html', {'board': board})    
 
 def list_content(request, board_id, list_id):
     list = get_object_or_404(List, pk=list_id)
     board = get_object_or_404(Board, pk=board_id)
-    return render(request, 'boards/list_content.html', {'board': board, 'list': list})
+    tasks = Task.objects.order_by('-deadline')
+    return render(request, 'boards/list_content.html', {'board': board, 'list': list, 'tasks' : tasks})
 
 def task_content(request, board_id, list_id, task_id):
+#    task = Task.objects.order_by('-deadline')
     task = get_object_or_404(Task, pk=task_id)
     list = get_object_or_404(List, pk=list_id)
     board = get_object_or_404(Board, pk=board_id)

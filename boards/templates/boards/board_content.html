@@ -36,6 +36,7 @@
     {% if list.task_set.all %}
         {% for task in list.task_set.all %}
            <ul><li><a href="{% url 'boards:task_content' board.id list.id task.id%}">{{ task.task_text }}</a></li></ul>
+           <ul><div class ="date"><u> Due date:</u> {{ task.deadline}}</div></ul>
            {% if task.comments.count %}
                <ul>Comments: {{ task.comments.count }}</ul>
             {% endif %}
