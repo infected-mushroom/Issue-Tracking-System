@@ -42,7 +42,7 @@ def board_new(request):
             board = form.save(commit=False)
             board.creation_date = datetime.now()
             board.save()
-            return redirect('/boards/%s/lists/' %board.pk, pk=board.pk)
+            return redirect('/%s/lists/' %board.pk, pk=board.pk)
     else:
         form = BoardForm()
     return render(request, 'boards/board_new.html', {'form': form})
@@ -55,7 +55,7 @@ def list_new(request, board_id):
             board = get_object_or_404(Board, pk=board_id)
             list.board = board
             list.save()
-            page = '/boards/' + str(board_id) + '/lists/'
+            page = '/' + str(board_id) + '/lists/'
             return redirect(page, pk = list.pk)
     else:
         form = ListForm()
@@ -70,7 +70,7 @@ def task_new(request, board_id, list_id):
             task_list = get_object_or_404(List, pk=list_id)
             task.task_list = task_list
             task.save()
-            page = '/boards/' + str(board_id) + '/lists/' + str(list_id)
+            page = '/' + str(board_id) + '/lists/' + str(list_id)
             return redirect(page, pk = task.pk)
     else:
             form = TaskForm()
@@ -84,7 +84,7 @@ def board_edit(request, board_id):
                 board = form.save(commit=False)
                 board.creation_date = datetime.now()
                 board.save()
-                return redirect('/boards/%s/lists/' %board.pk, pk=board.pk)
+                return redirect('/%s/lists/' %board.pk, pk=board.pk)
         else:
             form = BoardForm(instance=board)
         return render(request, 'boards/board_edit.html', {'form': form})
@@ -99,7 +99,7 @@ def list_edit(request, board_id, list_id):
                 board = get_object_or_404(Board, pk=board_id)
                 list.board = board
                 list.save()
-                page = '/boards/' + str(board_id) + '/lists/' + str(list_id)
+                page = '/' + str(board_id) + '/lists/' + str(list_id)
                 return redirect(page, pk=list.pk)
         else:
             form = ListForm(instance=list)
@@ -113,7 +113,7 @@ def board_remove(request, board_id):
 def list_remove(request, board_id, list_id):
     list = get_object_or_404(List, pk=list_id)
     list.delete()
-    return redirect('/boards/%s/lists/' %board_id)
+    return redirect('/%s/lists/' %board_id)
 
 def add_comment_to_task(request, board_id, list_id, task_id):
     task = get_object_or_404(Task, pk=task_id)
@@ -124,7 +124,7 @@ def add_comment_to_task(request, board_id, list_id, task_id):
             comment.task = task
             comment.created_date = datetime.now()
             comment.save()
-            page = '/boards/' + str(board_id) + '/lists/' + str(list_id) + '/tasks/' + str(task_id)
+            page = '/' + str(board_id) + '/lists/' + str(list_id) + '/tasks/' + str(task_id)
             return redirect(page)
     else:
         form = CommentForm()
