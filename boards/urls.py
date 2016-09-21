@@ -4,7 +4,8 @@ from . import views
 
 app_name = 'boards'
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'', views.start, name='start'),
+    url(r'^boards/$', views.index, name='index'),
       # ex: /boards/5/lists
     url(r'^(?P<board_id>[0-9]+)/lists/$', views.board_content, name='board_content'),
     # ex: /boards/5/lists/1

@@ -7,6 +7,10 @@ from django import forms
 from .models import Board, List, Task, Comment
 from .forms import BoardForm, ListForm, TaskForm, CommentForm
 
+def start(request):
+    return render(request, 'boards/base.html', {})
+
+
 def index(request):
     boards = Board.objects.order_by('-creation_date')[:10]
     context = {
