@@ -39,9 +39,9 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 </h1>
-<ul><div class ="date">Due date: {{ task.deadline}}</div></ul>
+<ul><div class ="date"><u>Due date:</u> {{ task.deadline}}</div></ul>
 <ul>
-    <h4>Comments ({{task.comments.count}}) <a href="{% url 'boards:add_comment_to_task' board.id list.id task.id %}"><span class="glyphicon glyphicon-plus"></span></a></h4>
+    <h4>Comments ({{task.comments.count}}) <a href="{% url 'boards:add_comment_to_task' board.id list.id task.id %}"><span class="glyphicon glyphicon-plus" style="color:green"></span></a></h4>
     {% for comment in task.comments.all %}
         <hr>
         <ul>
