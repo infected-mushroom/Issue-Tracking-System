@@ -26,13 +26,13 @@
   </div>
 </nav>
 
-<ul><h1>{{ board.board_name }}
+<ul><h1>{{ board.board_name }}<a href="{% url 'boards:list_new' board.id %}"> <span class="glyphicon glyphicon-plus" style="color:green"></span></a>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 </h1></ul>
 
 {% for list in board.list_set.all %}
-    <div class = "col-md-4">
+    <div class = "col-md-3">
     <h4><a href="{%url 'boards:list_content' board.id list.id %}">{{ list.list_name }}</a></h4>
     {% if list.task_set.all %}
         {% for task in list.task_set.all %}
@@ -51,6 +51,4 @@
     {% endif %}
 {% endfor %}
 <div class="col-md-4">
-<a href="{% url 'boards:list_new' board.id %}"><h4><u>Add a list</u></h4></a>
-</div>
 </body>
