@@ -108,6 +108,23 @@ def list_edit(request, board_id, list_id):
             form = ListForm(instance=list)
         return render(request, 'boards/list_edit.html', {'form': form})
 
+def task_edit(request, board_id, list_id, task_id):
+        task = get_object_or_404(Task, pk=task_id)
+
+        if request.method == "POST":
+            form = TaskForm(request.POST, instance=task)
+            if form.is_valid():
+                task = form.save(commit=False)
+                task_list = get_object_or_404(List, pk=list_id)
+                task.pub_date = datetime.now()
+                task.task_list = task_list
+                task.save()
+                page = '/' + str(board_id) + '/lists/' + str(list_id) + '/tasks/' + str(task_id)
+                return redirect(page, pk=task.pk)
+        else:
+            form = TaskForm(instance=task)
+        return render(request, 'boards/task_edit.html', {'form': form})
+
 def board_remove(request, board_id):
     board = get_object_or_404(Board, pk=board_id)
     board.delete()
@@ -117,6 +134,12 @@ def list_remove(request, board_id, list_id):
     list = get_object_or_404(List, pk=list_id)
     list.delete()
     return redirect('/%s/lists/' %board_id)
+
+def task_remove(request, board_id, list_id, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    task.delete()
+    page = '/' + str(board_id) + '/lists/' + str(list_id)
+    return redirect(page)
 
 def add_comment_to_task(request, board_id, list_id, task_id):
     task = get_object_or_404(Task, pk=task_id)

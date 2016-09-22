@@ -26,10 +26,10 @@
     <li class="active"><a href="#">{{ task.task_text }}</a></li>
   </ul>
   <ul class="nav navbar-nav">
-    <li><a href="{% url 'boards:board_edit' board.id %}"><span class="glyphicon glyphicon-pencil"></span></a></li>
+    <li><a href="{% url 'boards:task_edit' board.id list.id task.id %}"><span class="glyphicon glyphicon-pencil"></span></a></li>
   </ul>
   <ul class="nav navbar-nav">
-    <li><a href="{% url 'boards:board_remove' board.id %}"><span class="glyphicon glyphicon-remove"></span></a></li>
+    <li><a href="{% url 'boards:task_remove' board.id list.id task.id %}"><span class="glyphicon glyphicon-remove"></span></a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li><a href="{%url 'boards:logout' %}">Log out</a></li>
