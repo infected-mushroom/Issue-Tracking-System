@@ -34,8 +34,8 @@
 </h1>
 <ul>
 {% for task in list.task_set.all %}
-    <li><a style=color:green href="{%url 'boards:task_content' board.id list.id task.id %}">{{ task.task_text }}</a></li>
-    <div class ="date"><u> Due date:</u> {{ task.deadline}}</div>
+    <li><a style=color:green href="{%url 'boards:task_content' board.id list.id task.id %}"><h4>{{ task.task_text }}</h4></a></li>
+    <div class ="date"><u> Due date:</u> <mark style="background-color:#F6D8CE">{{ task.deadline}}</mark></div>
 {% endfor %}
 <a href="{%url 'boards:task_new' board.id list.id %}" button type="submit" class="btn btn-success">Add a new task</a>
 </ul>

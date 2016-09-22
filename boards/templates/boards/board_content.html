@@ -30,21 +30,27 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 </h1></ul>
-<ul>
+
 {% for list in board.list_set.all %}
+    <div class = "col-md-4">
     <h4><a href="{%url 'boards:list_content' board.id list.id %}">{{ list.list_name }}</a></h4>
     {% if list.task_set.all %}
         {% for task in list.task_set.all %}
-           <ul><li><a href="{% url 'boards:task_content' board.id list.id task.id%}">{{ task.task_text }}</a></li></ul>
-           <ul><div class ="date"><u> Due date:</u> {{ task.deadline}}</div></ul>
+           <div class="alert alert-success">
+           <a href="{% url 'boards:task_content' board.id list.id task.id%}">{{ task.task_text }}</a>
+           <div class ="date"><u> Due date:</u> <mark style="background-color:#F6D8CE">{{ task.deadline}}</mark></div>
            {% if task.comments.count %}
-               <ul>Comments: {{ task.comments.count }}</ul>
+               Comments: {{ task.comments.count }}
             {% endif %}
+            </div>
         {% endfor %}
+        </div>
+        </div>
     {% else %}
         <ul>This list is empty.</ul>
     {% endif %}
 {% endfor %}
-</ul>
-<ul><a href="{% url 'boards:list_new' board.id %}" button type="submit" class="btn btn-success">Add a new list</a></ul>
+<div class="col-md-4">
+<a href="{% url 'boards:list_new' board.id %}"><h4><u>Add a list</u></h4></a>
+</div>
 </body>
