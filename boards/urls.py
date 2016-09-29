@@ -6,6 +6,7 @@ from . import views
 app_name = 'boards'
 urlpatterns = [
     url(r'^$', views.start, name='start'),
+    url(r'^register/$', views.RegisterFormView.as_view(), name='register'),
     url(r'^accounts/login/$', django.contrib.auth.views.login, name='login'),
     url(r'^accounts/logout/$', django.contrib.auth.views.logout, name='logout', kwargs={'next_page': '/'}),
     url(r'^boards/$', views.index, name='index'),

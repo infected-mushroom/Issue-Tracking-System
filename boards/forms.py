@@ -1,5 +1,6 @@
 from django import forms
-from .models import Board, List, Task, Comment
+from .models import Board, List, Task, Comment, User
+from django.utils.translation import ugettext_lazy as _
 
 class BoardForm(forms.ModelForm):
 
@@ -26,7 +27,17 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('author', 'text',)
 
-'''class RegistrationForm(forms.Form):
+'''class UserForm(forms.ModelForm):
+    class Meta:
+        model = User  
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ['user']'''
+
+class RegistrationForm(forms.Form):
+
     username = forms.RegexField(regex=r'^\w+$', widget=forms.TextInput(attrs=dict(required=True, max_length=30)), label=_("Username"), error_messages={ 'invalid': _("This value must contain only letters, numbers and underscores.") })
     password1 = forms.CharField(widget=forms.PasswordInput(attrs=dict(required=True, max_length=30, render_value=False)), label=_("Password"))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs=dict(required=True, max_length=30, render_value=False)), label=_("Password (again)"))'''
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs=dict(required=True, max_length=30, render_value=False)), label=_("Password (again)"))

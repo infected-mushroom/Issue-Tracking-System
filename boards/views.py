@@ -3,7 +3,9 @@ from django.http import Http404
 from django.http import HttpResponse
 from datetime import datetime
 from django import forms
-
+from django.views.generic.edit import FormView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout, authenticate
 from .models import Board, List, Task, Comment
 from .forms import BoardForm, ListForm, TaskForm, CommentForm
 
@@ -155,3 +157,16 @@ def add_comment_to_task(request, board_id, list_id, task_id):
     else:
         form = CommentForm()
     return render(request, 'boards/add_comment_to_task.html', {'form': form})
+
+
+class RegisterFormView(FormView):
+    form_class = UserCreationForm
+    success_url = "/"
+    template_name = "register.html"
+
+    def form_valid(self, form):
+        form.save()
+        new_user = authenticate(username=form.cleaned_data['username'],
+                password=form.cleaned_data['password1'])
+        login(self.request, new_user)
+        return super(RegisterFormView, self).form_valid(form)
