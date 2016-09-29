@@ -12,6 +12,9 @@
     <li class="active"><a href="#">Boards</a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
+    <li><a>{{user.get_username}}</a></li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
     <li><a href="{%url 'boards:logout' %}">Log out</a></li>
   </ul>
   </div>

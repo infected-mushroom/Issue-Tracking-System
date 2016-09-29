@@ -3,6 +3,7 @@ from django.http import Http404
 from django.http import HttpResponse
 from datetime import datetime
 from django import forms
+from django.contrib.auth.models import User
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
@@ -145,11 +146,13 @@ def task_remove(request, board_id, list_id, task_id):
 
 def add_comment_to_task(request, board_id, list_id, task_id):
     task = get_object_or_404(Task, pk=task_id)
+    author = request.user.get_username()
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.task = task
+#            comment.author = User
             comment.created_date = datetime.now()
             comment.save()
             page = '/' + str(board_id) + '/lists/' + str(list_id) + '/tasks/' + str(task_id)

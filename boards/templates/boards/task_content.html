@@ -48,6 +48,7 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 </h1>
 <ul><div class ="date"><u>Due date:</u><mark style="background-color:#F6D8CE"> {{ task.deadline}}</mark></div></ul>
+<ul><u>Executor:</u> {{task.executor}}</ul>
 <ul>
     <h4>Comments ({{task.comments.count}}) <a href="{% url 'boards:add_comment_to_task' board.id list.id task.id %}"><span class="glyphicon glyphicon-plus" style="color:green"></span></a></h4>
     {% for comment in task.comments.all %}

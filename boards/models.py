@@ -20,13 +20,13 @@ class Task(models.Model):
     task_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
     deadline = models.DateTimeField(default=datetime.now)
-#    author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin')
+    executor = models.ForeignKey(User)
     def __str__(self):
         return self.task_text
 
 class Comment(models.Model):
     task = models.ForeignKey(Task, related_name='comments', default = '')
-    author = models.CharField(max_length=200)
+    author = models.ForeignKey(User)
     text = models.CharField(max_length=500)
     created_date = models.DateTimeField(default=datetime.now)
 

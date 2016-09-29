@@ -19,12 +19,13 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ('task_text', 'deadline')
+        fields = ('task_text', 'deadline', 'executor',)
 
 class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
+#        fields = ('text',)
         fields = ('author', 'text',)
 
 '''class UserForm(forms.ModelForm):
