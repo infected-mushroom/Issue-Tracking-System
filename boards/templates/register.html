@@ -18,7 +18,7 @@
   {% csrf_token %}
   <ul>
   <h1>Registration</h1>
-  <form role="form" class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
+  <form role="form" class="form-horizontal" method="post" action="{% url 'boards:register' %}">{% csrf_token %}
     <div class="form-group">
         {% for field in form %}
             <div class="input-group">
