@@ -16,20 +16,17 @@
 {% block content %}
 <form action="" method="post">
   {% csrf_token %}
-  <ul>
   <h1>Registration</h1>
   <form role="form" class="form-horizontal" method="post" action="{% url 'boards:register' %}">{% csrf_token %}
-    <div class="form-group">
-        {% for field in form %}
-            <div class="input-group">
-                <span class="input-group-addon" style="background-color:#D8F6CE;  color:black">{{field.label_tag}}</span><input class="form-control" id="{{ field.id_for_label }}" maxlength="30" name="{{ field.html_name }}" value="{{ form.field.label_tag }}" type="text" /> 
-
-                {{ field.errors }}
-            </div>
-        {% endfor %}
-        <input type="hidden" name="next" value="{{ next }}" />
-    </div>
-<ul><input type="submit" class="btn btn-success" value="Create an account"></ul>
+    <form><ul>
+  Username:<br> 
+  <input type="text" name="username"><br>
+  Password:<br> 
+  <input type="password" name="password1"><br>
+Confirm password:<br> 
+  <input type="password" name="password2">
+</form>
+<ul><br><input type="submit" class="btn btn-success" value="Create an account"></ul>
 </form>
 </ul>
   </ul>
