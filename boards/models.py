@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.db import models
+from django.conf import settings
 
 class Board(models.Model):
     board_name = models.CharField(max_length=200)
@@ -19,6 +20,7 @@ class Task(models.Model):
     task_list = models.ForeignKey(List, on_delete=models.CASCADE)
     task_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
+#    deadline = models.DateTimeField('due date')
     deadline = models.DateTimeField(default=datetime.now)
     executor = models.ForeignKey(User)
     def __str__(self):
@@ -26,7 +28,10 @@ class Task(models.Model):
 
 class Comment(models.Model):
     task = models.ForeignKey(Task, related_name='comments', default = '')
-    author = models.ForeignKey(User)
+#    author = models.ForeignKey(User)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE,
+    )
     text = models.CharField(max_length=500)
     created_date = models.DateTimeField(default=datetime.now)
 

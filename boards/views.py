@@ -146,13 +146,13 @@ def task_remove(request, board_id, list_id, task_id):
 
 def add_comment_to_task(request, board_id, list_id, task_id):
     task = get_object_or_404(Task, pk=task_id)
-    author = request.user.get_username()
+    author = request.user
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.task = task
-#            comment.author = User
+            comment.author = author
             comment.created_date = datetime.now()
             comment.save()
             page = '/' + str(board_id) + '/lists/' + str(list_id) + '/tasks/' + str(task_id)

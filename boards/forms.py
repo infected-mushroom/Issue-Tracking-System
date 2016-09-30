@@ -13,29 +13,19 @@ class ListForm(forms.ModelForm):
     class Meta:
         model = List
         fields = ('list_name',)
-#        fields = ('list_name','board',)
 
 class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
         fields = ('task_text', 'deadline', 'executor',)
+        ordering = ['-deadline']
 
 class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-#        fields = ('text',)
-        fields = ('author', 'text',)
-
-'''class UserForm(forms.ModelForm):
-    class Meta:
-        model = User  
-
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        exclude = ['user']'''
+        fields = ('text',)
 
 class RegistrationForm(forms.Form):
 
